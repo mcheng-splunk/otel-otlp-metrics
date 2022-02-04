@@ -34,3 +34,18 @@ Sample nodejs application to send Otel metrics via Otel grpc into O11y. The samp
 - Launch the Otel docker container `docker-compose up`
 - Perform a npm install to download the dependencies.
 - Launch the nodejs application `node server.js`
+
+---
+
+### Docker Build
+
+To build the docker image for the nodejs application, we can utilise paketo buildpack 
+
+- Install the pack [utilty](https://buildpacks.io/docs/tools/pack/)
+
+- Build the docker container   
+`pack build otlp-grpc --buildpack gcr.io/paketo-buildpacks/nodejs \
+  --builder paketobuildpacks/builder:base`
+
+- To run the docker container   
+  `docker run --init otlp-grpc`
