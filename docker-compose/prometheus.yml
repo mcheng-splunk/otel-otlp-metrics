@@ -1,0 +1,9 @@
+global:
+    scrape_interval: 15s
+    external_labels:
+        monitor: 'my-monitor'
+scrape_configs:
+    - job_name: 'jenkins-exporter'
+      metrics_path: /prometheus
+      static_configs:
+          - targets: ['jenkins:8080']

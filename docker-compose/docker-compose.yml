@@ -1,0 +1,50 @@
+version: "3"
+services:
+  splunk-otel-collector:
+    image: quay.io/signalfx/splunk-otel-collector:latest
+    container_name: splunk-otel-collector
+    command: ["--config=/etc/otel-collector-config.yml"]
+    environment:
+      - SPLUNK_ACCESS_TOKEN=${SPLUNK_ACCESS_TOKEN}
+      - SPLUNK_REALM=${SPLUNK_REALM}
+      - OTEL_SERVICE_NAME=${OTEL_SERVICE_NAME}
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "13133:13133"
+      - "14250:14250"
+      - "14268:14268"
+      - "4317:4317"
+      - "6060:6060"
+      - "8888:8888"
+      - "9080:9080"
+      - "9411:9411"
+      - "9943:9943"
+  # prometheus:
+  #   image: prom/prometheus
+  #   container_name: prometheus
+  #   restart: always
+  #   ports:
+  #       - 9090:9090
+  #   volumes:
+  #       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   command: 
+  #       - '--config.file=/etc/prometheus/prometheus.yml'
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   privileged: true
+  #   user: root
+  #   ports:
+  #     - 8080:8080
+  #     - 50000:50000
+  #   container_name: jenkins
+  #   volumes:
+  #     - /Users/mcheng/Documents/jenkins/jenkins_compose/jenkins_configuration:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  # jenkins-exporter:
+  #   image: lovoo/jenkins_exporter:latest
+  #   container_name: jenkins_exporter
+  #   command: ["-j", "http://jenkins:8080", "-p", "9118"]
+  #   ports:
+  #     - 9118:9118
