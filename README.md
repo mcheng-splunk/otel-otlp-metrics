@@ -41,6 +41,8 @@ Sample nodejs application to send Otel metrics via Otel grpc into O11y. The samp
 
 To build the docker image for the nodejs application, we can utilise paketo buildpack 
 
+- `cd nodejs-send-grpc-metrics`
+  
 - Install the pack [utilty](https://buildpacks.io/docs/tools/pack/)
 
 - Build the docker container   
